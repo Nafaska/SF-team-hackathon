@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> TFS_Timefox_integration </title>
+    <link rel="shortcut icon" href="icons/ascendix.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <label  class="col-sm" for="fromDate">FROM:</label>
+                <input  class="col-sm" id="fromDate" type="date" v-model="fromDate" placeholder="fromDate">
+                <label  class="col-sm" for="toDate">TO:</label>
+                <input  class="col-sm" id="toDate" type="date" v-model="toDate" placeholder="toDate">
+                <div class="col-sm ">
+                    <button class="btn btn-primary" type="button" @click='getTFSdata'>Get data from TFS</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col" v-for="act in activity">{{act}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="dtRow in dt">
+                            <th scope="row">1</th>
+                            <td v-for="act in activity">{{act}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <button  type="button" class="btn btn-primary" @click='getTFSdata'>Push</button>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+
+        var today = new Date();
+        var tomorrow = new Date();
+        tomorrow.setDate(today.getDate() + 1);
+
+        Date.prototype.yyyymmdd = function () {
+            var mm = this.getMonth() + 1; // getMonth() is zero-based
+            var dd = this.getDate();
+
+            return [this.getFullYear(),
+            (mm > 9 ? '' : '0') + mm,
+            (dd > 9 ? '' : '0') + dd
+            ].join('-');
+        };
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                name: 'Vitalik',
+                fromDate: today.yyyymmdd(),
+                toDate: tomorrow.yyyymmdd(),
+                dt: [
+                    '1',
+                    '2',
+                    '3',
+                    '4',
+                    '5',
+                    '6',
+                    '7'
+                ],
+                activity: [
+                    '1',
+                    '2',
+                    '3',
+                    '4',
+                    '5',
+                    '6',
+                    '7'
+                ]
+            },
+            methods: {
+                getTFSdata: function () {
+                   /*$.ajax({url: "demo_test.txt", success: function(result){
+                        debugger
+                        $("#div1").html(result);
+                      }});*/
+                }
+            }
+        });
+
+        $("button").click(function(){
+            console.log('jquery');
+            app.data = null;
+            /*
+            $.ajax({
+                type: 'POST',
+                url: "goverment.php",
+                data: { tfsData: app.data },
+                success: function(result){
+                    console.dir(result);
+            }});*/
+          });
+
+    </script>
+</body>
+
+</html>
