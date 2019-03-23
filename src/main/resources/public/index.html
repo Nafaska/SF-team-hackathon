@@ -2,64 +2,119 @@
 <html>
 
 <head>
-	<title> TFS_Timefox_integration </title>
-	<link rel="shortcut icon" href="icons/ascendix.ico" type="image/x-icon">
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Page Title</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> TFS_Timefox_integration </title>
+    <link rel="shortcut icon" href="ascendix.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-			crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
 
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-			crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
 
 <div id="app">
 
-	<div class="container">
-		<div class="row justify-content-md-center">
-			<label  class="col-sm" for="fromDate">FROM:</label>
-			<input  class="col-sm" id="fromDate" type="date" v-model="fromDate" placeholder="fromDate">
-			<label  class="col-sm" for="toDate">TO:</label>
-			<input  class="col-sm" id="toDate" type="date" v-model="toDate" placeholder="toDate">
-			<div class="col-sm ">
-				<button class="btn btn-primary" type="button" @click='getTFSdata'>Get data from TFS</button>
-			</div>
-		</div>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <label class="col-sm" for="fromDate">FROM:</label>
+            <input class="col-sm" id="fromDate" type="date" v-model="fromDate" placeholder="fromDate">
+            <label class="col-sm" for="toDate">TO:</label>
+            <input class="col-sm" id="toDate" type="date" v-model="toDate" placeholder="toDate">
+            <div class="col-sm ">
+                <button class="btn btn-primary" type="button" @click='getTFSdata'>Get data from TFS</button>
+            </div>
+        </div>
 
-		<div class="row">
-			<table class="table table-hover">
-				<thead class="thead-dark">
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col" v-for="act in activity">{{act}}</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr v-for="dtRow in dt">
-					<th scope="row">1</th>
-					<td v-for="act in activity">{{act}}</td>
-				</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="row">
-			<button  type="button" class="btn btn-primary" @click='getTFSdata'>Push</button>
-		</div>
-	</div>
+        <div v-if="tfsDataTable" class="row">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Client</th>
+                    <th scope="col">Project</th>
+                    <th scope="col">Task</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Work Day</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="tfsDataRow in tfsDataTable">
+                        <td scope="row">
+                            <div v-if="!tfsDataRow.isEditing">
+                                <div @click="tfsDataRow.isEditing = true">Edit</div>
+                                <div >Delete</div>
+                            </div>
+                            <div v-else>
+                                <div >Undo</div>
+                                <div >Save</div>
+                            </div>
+                        </td>
+                        <td scope="row">
+                            <select :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm">
+                                <option selected>--Select one--</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </td>
+                        <td scope="row">
+                            <select :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm">
+                                <option selected>--Select one--</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </td>
+                        <td scope="row">
+                            <select :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm">
+                                <option selected>--Select one--</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </td>
+                        <td scope="row">
+                            <b v-if="!tfsDataRow.isEditing">
+                                {{tfsDataRow.spendedTime}}
+                            </b>
+                            <input type="text" v-model="tfsDataRow.spendedTime" v-if="tfsDataRow.isEditing">
+                        </td>
+                        <td scope="row">
+                            <b v-if="!tfsDataRow.isEditing">
+                                {{tfsDataRow.description}}
+                            </b>
+                            <input type="text" v-model="tfsDataRow.description" v-if="tfsDataRow.isEditing">
+                        </td>
+                        <td scope="row">
+                            <b v-if="!tfsDataRow.isEditing">
+                                {{new Date(tfsDataRow.workDay).toLocalFormat()}}
+                            </b>
+                            <input type="date" v-model="new Date(tfsDataRow.workDay).yyyymmdd()"  v-if="tfsDataRow.isEditing">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-primary" >Push</button>
+        </div>
+    </div>
 
 </div>
 
@@ -75,54 +130,46 @@
 			(dd > 9 ? '' : '0') + dd
 		].join('-');
 	};
+
+	Date.prototype.toLocalFormat = function () {
+		  var monthNames = [ "January", "February", "March",
+                             "April", "May", "June", "July",
+                             "August", "September", "October",
+                              "November", "December" ];
+
+        var day = this.getDate();
+        var monthIndex = this.getMonth();
+        var year = this.getFullYear();
+
+        return day + ' ' + monthNames[monthIndex] + ' ' + year;
+	};
 	var app = new Vue({
 		el: '#app',
 		data: {
 			name: 'Vitalik',
 			fromDate: today.yyyymmdd(),
 			toDate: tomorrow.yyyymmdd(),
-			dt: [
-				'1',
-				'2',
-				'3',
-				'4',
-				'5',
-				'6',
-				'7'
-			],
-			activity: [
-				'1',
-				'2',
-				'3',
-				'4',
-				'5',
-				'6',
-				'7'
-			]
+			tfsDataTable: null
 		},
 		methods: {
 			getTFSdata: function() {
+				var self = this;
 				$.ajax({
 					url: "/api/tasks/getAll", success: function(result) {
 						debugger;
-						$("#div1").html(result);
+						result.forEach(item => {
+						    item.isEditing = false;
+						});
+
+						self.tfsDataTable = result;
 					}
 				});
 			}
 		}
 	});
-	$("button").click(function(){
-		console.log('jquery');
-		app.data = null;
-		/*
-		$.ajax({
-			type: 'POST',
-			url: "goverment.php",
-			data: { tfsData: app.data },
-			success: function(result){
-				console.dir(result);
-		}});*/
-	});
+
+
+
 </script>
 </body>
 
