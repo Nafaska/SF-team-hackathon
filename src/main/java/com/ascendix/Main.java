@@ -1,21 +1,24 @@
 package com.ascendix;
 
+import com.ascendix.models.TimeFoxUser;
+import com.ascendix.timeFoxService.TimeFoxService;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.io.IOException;
 
 
-@SpringBootApplication
+//@SpringBootApplication
 public class Main {
     public static void main(String... args) throws IOException {
-//        TimeFoxService timeFoxLogin = new TimeFoxService();
-//        timeFoxLogin.login();
-        SpringApplication.run(Main.class, args);
+        TimeFoxService timeFoxLogin = new TimeFoxService();
+        TimeFoxUser timeFoxUser = new TimeFoxUser();
+        timeFoxUser.setPassword("");
+        timeFoxUser.setOrgId("5351");
+        timeFoxUser.setUserName("");
+        timeFoxLogin.login(timeFoxUser);
+//        SpringApplication.run(Main.class, args);
     }
 
     @Bean
