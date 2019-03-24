@@ -30,12 +30,6 @@
 			<version>1.18.6</version>
 			<scope>provided</scope>
 		</dependency>
-		<!--&lt;!&ndash; https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver &ndash;&gt;-->
-		<!--<dependency>-->
-			<!--<groupId>org.mongodb</groupId>-->
-			<!--<artifactId>mongo-java-driver</artifactId>-->
-			<!--<version>3.10.1</version>-->
-		<!--</dependency>-->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-chrome-driver</artifactId>
@@ -70,8 +64,11 @@
 			<artifactId>selenium-support</artifactId>
 			<version>3.141.59</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 </project>

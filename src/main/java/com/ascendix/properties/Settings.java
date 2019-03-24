@@ -1,4 +1,4 @@
-package com;
+package com.ascendix.properties;
 
 public class Settings {
     public static final String TFS_URL = "https://acx-tfs.visualstudio.com";

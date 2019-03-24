@@ -1,10 +1,10 @@
 package com.ascendix.services;
 
-import com.Settings;
 import com.ascendix.models.VSTSEntity;
 import com.ascendix.models.VSTSEntityResponse;
 import com.ascendix.models.VSTSItem;
 import com.ascendix.models.VSTSItemsResponse;
+import com.ascendix.properties.Settings;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
