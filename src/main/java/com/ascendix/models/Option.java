@@ -4,12 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class UIItem {
-    double spentHours;
-    String description;
-    Long closedDate;
+public class Option {
+    private String label;
+    private String value;
 }
