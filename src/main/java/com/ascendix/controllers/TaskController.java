@@ -29,8 +29,6 @@ public class TaskController {
 
     @GetMapping(value = "/getAllTaskByQueryId")
     public List<UIItem> getAllTaskByQueryId(@RequestParam(value = "queryId") String queryId) {
-        List<UIItem> tfsDataTable = new ArrayList<UIItem>();
-        //        Put here your code
         return new UIItemsService().getItemsByQueryId(queryId);
     }
 
