@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/SF-team-hackathon.iml" filepath="$PROJECT_DIR$/.idea/SF-team-hackathon.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/SF-team-hackathon.iml" filepath="$PROJECT_DIR$/.idea/SF-team-hackathon.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SF-team-hackathon.iml" filepath="$PROJECT_DIR$/SF-team-hackathon.iml" />
     </modules>
   </component>
 </project>

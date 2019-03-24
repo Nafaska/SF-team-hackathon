@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> TFS_Timefox_integration </title>
+    <link rel="shortcut icon" href="ascendix.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+
+    <div class="container">
+        <div class="row my-3 justify-content-md-center">
+            <div class="col-sm">
+                <input name="radio" type="radio" value="1" v-model="gettingDataType">
+                <label>
+                    Get items by parameters
+                </label>
+                <input name="radio" type="radio" value="2" v-model="gettingDataType">
+                <label>
+                    Get items by parameters
+                </label>
+            </div>
+        </div>
+        <div v-if="gettingDataType == 1" class="row my-3 justify-content-md-center">
+            <div class="col-sm ">
+                <label for="fromDate">FROM:</label>
+                <input id="fromDate" type="date" v-model="fromDate">
+            </div>
+            <div class="col-sm ">
+                <label for="toDate">TO:</label>
+                <input id="toDate" type="date" v-model="toDate">
+            </div>
+            <div class="col-sm " style="white-space:nowrap">
+                <label for="projectName">ProjectName</label>
+                <input id="projectName" type="text">
+            </div>
+            <div class="col-sm ">
+                <button class="btn btn-primary" type="button" @click='getAllTaskByParams'>Get data from TFS</button>
+            </div>
+        </div>
+        <div v-else-if="gettingDataType == 2" class="row my-3 justify-content-md-center">
+            <input class="col-sm " type="text" v-model="queryId">
+            <div class="col-sm ">
+                <button class="btn btn-primary" type="button" @click='getAllTaskByQueryId'>Get data from TFS</button>
+            </div>
+        </div>
+
+        <div v-if="tfsDataTable" class="row my-3">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Client</th>
+                    <th scope="col">Project</th>
+                    <th scope="col">Task</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Work Day</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(tfsDataRow, index) in tfsDataTable">
+                    <td scope="row">
+                        <div class="d-inline" v-if="!tfsDataRow.isEditing">
+                            <div @click="tfsDataRow.isEditing = true">Edit</div>
+                            <div @click="">Delete</div>
+                        </div>
+                        <div class="d-inline" v-else>
+                            <div @click="">Undo</div>
+                            <div @click="">Save</div>
+                        </div>
+                    </td>
+                    <td scope="row">
+                        <select :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm">
+                            <option selected>--Select one--</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </td>
+                    <td scope="row">
+                        <select :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm">
+                            <option selected>--Select one--</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </td>
+                    <td scope="row">
+                        <select :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm">
+                            <option selected>--Select one--</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </td>
+                    <td scope="row">
+                        <b v-if="!tfsDataRow.isEditing">
+                            {{tfsDataRow.spendedTime}}
+                        </b>
+                        <input type="text" v-model="tfsDataRow.spendedTime" v-if="tfsDataRow.isEditing">
+                    </td>
+                    <td scope="row">
+                        <b v-if="!tfsDataRow.isEditing">
+                            {{tfsDataRow.description}}
+                        </b>
+                        <input type="text" v-model="tfsDataRow.description" v-if="tfsDataRow.isEditing">
+                    </td>
+                    <td scope="row">
+                        <b v-if="!tfsDataRow.isEditing">
+                            {{new Date(tfsDataRow.workDay).toLocalFormat()}}
+                        </b>
+                        <input type="date" v-model="new Date(tfsDataRow.workDay).yyyymmdd()"
+                               v-if="tfsDataRow.isEditing">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row my-3">
+            <button type="button" class="btn btn-primary">Push</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+	var today = new Date();
+	var tomorrow = new Date();
+	tomorrow.setDate(today.getDate() + 1);
+	Date.prototype.yyyymmdd = function () {
+		var mm = this.getMonth() + 1; // getMonth() is zero-based
+		var dd = this.getDate();
+		return [this.getFullYear(),
+			(mm > 9 ? '' : '0') + mm,
+			(dd > 9 ? '' : '0') + dd
+		].join('-');
+	};
+
+	Date.prototype.toLocalFormat = function () {
+		  var monthNames = [ "January", "February", "March",
+                             "April", "May", "June", "July",
+                             "August", "September", "October",
+                              "November", "December" ];
+
+        var day = this.getDate();
+        var monthIndex = this.getMonth();
+        var year = this.getFullYear();
+
+        return day + ' ' + monthNames[monthIndex] + ' ' + year;
+	};
+	var app = new Vue({
+		el: '#app',
+		data: {
+			name: "Vitalik",
+			fromDate: today.yyyymmdd(),
+			toDate: tomorrow.yyyymmdd(),
+			tfsDataTable: null,
+			projectName: 'test',
+			queryId: null,
+			gettingDataType: 1
+		},
+		dataType : "json",
+		created: function() {
+		    console.log('init');
+		},
+		methods: {
+			getAllTaskByParams: function() {
+			    debugger
+				var self = this;
+				$.ajax({
+					url: "/api/tasks/getAllTaskByParams",
+					data: {
+					        fromDate: new Date(self.fromDate).getMilliseconds(),
+					        toDate: new Date(self.toDate).getMilliseconds(),
+					        projectName: self.projectName
+					},
+					success: function(result) {
+						debugger;
+                        self.tfsDataTableBackup = result;
+						self.tfsDataTable = result.map(item => {
+						    item.isEditing = false;
+						    return  Object.assign({}, item);
+						});
+
+					}
+				});
+			},
+			getAllTaskByQueryId: function() {
+			    debugger
+				var self = this;
+				$.ajax({
+					url: "/api/tasks/getAllTaskByQueryId",
+					data: {
+					        queryId: self.queryId
+					},
+					success: function(result) {
+						debugger;
+                        self.tfsDataTableBackup = result;
+						self.tfsDataTable = result.map(item => {
+						    item.isEditing = false;
+						    return  Object.assign({}, item);
+						});
+
+					}
+				});
+			},
+
+			undoRecordChanges: function() {
+			},
+
+			saveRecordChanges: function() {
+			},
+
+			deleteRecord: function() {
+			},
+		}
+
+
+	});
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+
+</html>
