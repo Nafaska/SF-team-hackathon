@@ -9,8 +9,6 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("application-local.properties")
 public class Main {
     public static void main(String... args) {
-//        VSTSService service = new VSTSService();
-//        service.getProjects();
         SpringApplication.run(Main.class, args);
     }
 }
