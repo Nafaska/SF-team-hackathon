@@ -23,10 +23,10 @@ public class TimeFoxService {
     }
 
     private WebDriver login(TimeFoxUser userData) {
-        System.setProperty("webdriver.chrome.driver", Settings.CHROME_DRIVER_PATH);
+        System.setProperty("webdriver.chrome.driver", Settings.getSettingValueByName("chrome_driver_path"));
         WebDriver driver = new ChromeDriver();
 
-        driver.get(Settings.TIME_FOX_URL);
+        driver.get(Settings.getSettingValueByName("time_fox_url"));
         setInputElementValue(driver, "user", userData.getUserName());
         setInputElementValue(driver, "passwd", userData.getPassword());
         setInputElementValue(driver, "org_cd", userData.getOrgId());
