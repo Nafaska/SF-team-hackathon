@@ -12,4 +12,7 @@ public class UIItem {
     double spentHours;
     String description;
     Long closedDate;
+    String clientId;
+    String projectId;
+    String productId;
 }

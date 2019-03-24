@@ -55,5 +55,13 @@ public class TaskController {
     private TimeFoxService getTimeFoxService(){
         return TIME_FOX_SERVICE == null ? new TimeFoxService(new UserAuthService().getUser()) : TIME_FOX_SERVICE;
     }
+    @PostMapping(value = "/setTimeFoxData")
+    public void setTimeFoxData(@RequestBody List<UIItem> tfsDatatable) {
+
+        System.out.println(tfsDatatable.size());
+        System.out.println(tfsDatatable.get(0));
+        //        Put here your code
+
+    }
 
 }

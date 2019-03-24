@@ -16,9 +16,17 @@ public class UIItemsService {
             return new ArrayList<>();
         }
         items.forEach(item -> {
-            result.add(new UIItem(item.getCompletedHours(), item.getTitle(), item.getClosedDate()));
+            result.add( buildUIItem(item));
         });
 
+        return result;
+    }
+
+    private UIItem buildUIItem(VSTSItem item) {
+        UIItem result = new UIItem();
+        result.setSpentHours(item.getCompletedHours());
+        result.setClosedDate(item.getClosedDate());
+        result.setDescription(item.getTitle());
         return result;
     }
 
