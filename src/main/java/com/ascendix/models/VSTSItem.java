@@ -51,9 +51,9 @@ public class VSTSItem extends VSTSEntity implements Serializable {
             String stringDate = fields.get("Microsoft.VSTS.Common.ClosedDate");
             if (stringDate != null) {
                 try {
-                    Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSZ").parse(stringDate.replaceAll("Z$", "+0000"));
+                    Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parse(stringDate.replaceAll("Z$", "+0000"));
                     closedDate = date.getTime();
-                } catch (ParseException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                     closedDate = null;
                 }

@@ -1,6 +1,7 @@
 package com.ascendix.controllers;
 
 import com.ascendix.models.Option;
+import com.ascendix.models.TimeFoxTask;
 import com.ascendix.models.UIItem;
 import com.ascendix.services.TimeFoxService;
 import com.ascendix.services.UIItemsService;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @RestController
@@ -56,12 +58,23 @@ public class TaskController {
         return TIME_FOX_SERVICE == null ? new TimeFoxService(new UserAuthService().getUser()) : TIME_FOX_SERVICE;
     }
     @PostMapping(value = "/setTimeFoxData")
-    public void setTimeFoxData(@RequestBody List<UIItem> tfsDatatable) {
+    public void setTimeFoxData(@RequestBody List<UIItem> vSTStasks) {
 
-        System.out.println(tfsDatatable.size());
-        System.out.println(tfsDatatable.get(0));
-        //        Put here your code
-
+        vSTStasks.forEach(item -> {
+            TimeFoxTask timeFoxTask = new TimeFoxTask();
+            timeFoxTask.setTaskId(item.getProductId());
+            timeFoxTask.setClientId(item.getClientId());
+            timeFoxTask.setProjectId(item.getProjectId());
+            timeFoxTask.setProjectId(item.getProjectId());
+            timeFoxTask.setDescription(item.getDescription());
+            timeFoxTask.setTime(String.valueOf(item.getSpentHours()));
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(item.getClosedDate());
+            timeFoxTask.setMonth("03");//String.valueOf(calendar.MONTH));
+            timeFoxTask.setDay("24");//String.valueOf(calendar.DAY_OF_MONTH));
+            timeFoxTask.setYear("19");
+            getTimeFoxService().addTask(timeFoxTask);
+        });
     }
 
 }
