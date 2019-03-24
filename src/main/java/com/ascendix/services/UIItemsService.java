@@ -1,7 +1,5 @@
 package com.ascendix.services;
 
-import com.ascendix.models.Option;
-import com.ascendix.models.TimeFoxTask;
 import com.ascendix.models.UIItem;
 import com.ascendix.models.VSTSItem;
 
