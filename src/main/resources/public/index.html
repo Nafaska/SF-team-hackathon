@@ -3,7 +3,7 @@
 
 <head>
     <title> TFS_Timefox_integration </title>
-    <link rel="shortcut icon" href="src/main/resources/public/icons/ascendix.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="ascendix.ico" type="image/x-icon">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
@@ -34,7 +34,7 @@
             <div class="col-sm">
                 <input name="radio" type="radio" value="1" v-model="gettingDataType">
                 <label>
-                    Get items by parameters
+                    Get items by queryId
                 </label>
                 <input name="radio" type="radio" value="2" v-model="gettingDataType">
                 <label>
@@ -42,7 +42,7 @@
                 </label>
             </div>
         </div>
-        <div v-if="gettingDataType == 1" class="row my-3 justify-content-md-center">
+        <div v-if="gettingDataType == 2" class="row my-3 justify-content-md-center">
             <div class="col-sm ">
                 <label for="fromDate">FROM:</label>
                 <input id="fromDate" type="date" v-model="fromDate">
@@ -59,7 +59,7 @@
                 <button class="btn btn-primary" type="button" @click='getAllTaskByParams'>Get data from TFS</button>
             </div>
         </div>
-        <div v-else-if="gettingDataType == 2" class="row my-3 justify-content-md-center">
+        <div v-else-if="gettingDataType == 1" class="row my-3 justify-content-md-center">
             <input class="col-sm " type="text" v-model="queryId">
             <div class="col-sm ">
                 <button class="btn btn-primary" type="button" @click='getAllTaskByQueryId'>Get data from TFS</button>
@@ -82,13 +82,13 @@
                 <tbody>
                 <tr v-for="(tfsDataRow, index) in tfsDataTable">
                     <td scope="row">
-                        <div class="d-inline" v-if="!tfsDataRow.isEditing">
-                            <div @click="tfsDataRow.isEditing = true">Edit</div>
-                            <div @click="">Delete</div>
+                        <div class="d-inline" v-if="!tfsDataRow.isEditing" style="cursor:pointer">
+                            <img width="20" height="20" src="edit_60.png" alt="Edit" @click="tfsDataRow.isEditing = true">
+                            <img width="20" height="20" src="delete_60.png" alt="Delete" @click="deleteRecord(index)">
                         </div>
-                        <div class="d-inline" v-else>
-                            <div @click="">Undo</div>
-                            <div @click="">Save</div>
+                        <div class="d-inline" v-else style="cursor:pointer">
+                            <img width="20" height="20" src="undo_60.png" alt="Undo" @click="undoRecordChanges(index)">
+                            <img width="20" height="20" src="save_60.png" alt="Save" @click="saveRecordChanges(index)">
                         </div>
                     </td>
                     <td scope="row">
@@ -227,28 +227,24 @@
 				});
 			},
 
-			undoRecordChanges: function() {
+			undoRecordChanges: function(index) {
+			    debugger
+			    console.log(index);
 			},
 
-			saveRecordChanges: function() {
+			saveRecordChanges: function(index) {
+			    debugger
+			    console.log(index);
 			},
 
-			deleteRecord: function() {
+			deleteRecord: function(index) {
+			    debugger
+			    console.log(index);
 			},
 		}
 
 
 	});
-
-
-
-
-
-
-
-
-
-
 </script>
 </body>
 

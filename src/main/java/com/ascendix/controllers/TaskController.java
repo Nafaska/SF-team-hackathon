@@ -26,7 +26,9 @@ public class TaskController {
     @GetMapping(value = "/getAllTaskByQueryId")
     public ArrayList<VSTS_Data> getAllTaskByQueryId(@RequestParam(value = "queryId") String queryId) {
         ArrayList<VSTS_Data> tfsDataTable = new ArrayList<VSTS_Data>();
-        //        Put here your code
+        for (int i = 0; i < 20; i++) {
+            tfsDataTable.add(new VSTS_Data((double) i, "Small Task" + i, new Date()));
+        }
         return tfsDataTable;
     }
 
