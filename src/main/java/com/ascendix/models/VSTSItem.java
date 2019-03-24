@@ -12,6 +12,12 @@ public class VSTSItem extends VSTSEntity implements Serializable {
     private String state;
     private String title;
     private Long closedDate;
+    private Double completedHours;
+
+    public Double getCompletedHours() {
+        return completedHours;
+    }
+
     private Map<String, String> fields;
 
 
@@ -56,6 +62,7 @@ public class VSTSItem extends VSTSEntity implements Serializable {
             title = fields.get("System.Title");
             state = fields.get("System.State");
             type = fields.get("System.WorkItemType");
+            completedHours = fields.get("Microsoft.VSTS.Scheduling.CompletedWork") == null ? 0 : Double.valueOf(fields.get("Microsoft.VSTS.Scheduling.CompletedWork"));
         }
     }
 }

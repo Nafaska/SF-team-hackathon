@@ -33,6 +33,7 @@ public class VSTSService {
         fields.add("System.WorkItemType");
         fields.add("System.WorkItemType");
         fields.add("Microsoft.VSTS.Common.ClosedDate");
+        fields.add("Microsoft.VSTS.Scheduling.CompletedWork");
         fields.add("System.State");
 
         Set<String> itemsId = new HashSet<>();
