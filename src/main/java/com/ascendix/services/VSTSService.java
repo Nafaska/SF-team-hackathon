@@ -51,9 +51,9 @@ public class VSTSService {
         String urlSuffix = "/_apis/wit/workitems?api-version=5.0&fields=" + fieldsString + "&ids=" + idsString;
 
         RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new UserAuthService().getBasicAuthHeaders(Settings.USERNAME, Settings.TOKEN);
+        HttpHeaders headers = new UserAuthService().getBasicAuthHeaders(Settings.getSettingValueByName("username"), Settings.getSettingValueByName("token"));
         HttpEntity entity = new HttpEntity(headers);
-        ResponseEntity<VSTSItemsResponse> response = restTemplate.exchange(Settings.TFS_URL + urlSuffix, HttpMethod.GET, entity, VSTSItemsResponse.class);
+        ResponseEntity<VSTSItemsResponse> response = restTemplate.exchange(Settings.getSettingValueByName("tfs_url") + urlSuffix, HttpMethod.GET, entity, VSTSItemsResponse.class);
         if (response.getStatusCode().equals(HttpStatus.OK)) {
             return getFilteredItems(response.getBody().getValue());
         }
@@ -82,9 +82,9 @@ public class VSTSService {
 
     private VSTSEntityResponse getEntity(String url) {
         RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new UserAuthService().getBasicAuthHeaders(Settings.USERNAME, Settings.TOKEN);
+        HttpHeaders headers = new UserAuthService().getBasicAuthHeaders(Settings.getSettingValueByName("username"), Settings.getSettingValueByName("token"));
         HttpEntity entity = new HttpEntity(headers);
-        ResponseEntity<VSTSEntityResponse> response = restTemplate.exchange(Settings.TFS_URL + url, HttpMethod.GET, entity, VSTSEntityResponse.class);
+        ResponseEntity<VSTSEntityResponse> response = restTemplate.exchange(Settings.getSettingValueByName("tfs_url")+ url, HttpMethod.GET, entity, VSTSEntityResponse.class);
         if (response.getStatusCode().equals(HttpStatus.OK)) {
             return response.getBody();
         }
