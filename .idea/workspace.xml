@@ -2,25 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2eb8ac19-a756-4884-a4f6-d88665d6f0cc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ascendix/models/FormInitData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ascendix/models/Option.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ascendix/models/TimeFoxTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Settings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ascendix/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ascendix/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ascendix/controllers/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ascendix/controllers/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ascendix/models/System.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ascendix/models/UIItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ascendix/models/UIItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ascendix/services/TimeFoxService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ascendix/services/TimeFoxService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ascendix/services/UIItemsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ascendix/services/UIItemsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ascendix/services/UserAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ascendix/services/UserAuthService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/Settings.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Settings.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ascendix/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ascendix/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ascendix/controllers/TaskController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ascendix/controllers/TaskController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ascendix/models/System.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ascendix/services/TimeFoxService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ascendix/services/TimeFoxService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ascendix/services/UserAuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ascendix/services/UserAuthService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/public/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -42,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="232" column="40" selection-start-line="232" selection-start-column="12" selection-end-line="232" selection-end-column="40" />
+            <state relative-caret-position="345">
+              <caret line="242" column="43" selection-start-line="242" selection-start-column="43" selection-end-line="242" selection-end-column="43" />
               <folding>
                 <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -59,8 +44,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ascendix/controllers/TaskController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="43" column="37" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="37" />
+            <state relative-caret-position="550">
+              <caret line="43" column="39" lean-forward="true" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -71,12 +56,24 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ascendix/services/TimeFoxService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="606">
-              <caret line="70" column="49" selection-start-line="70" selection-start-column="49" selection-end-line="70" selection-end-column="49" />
+            <state relative-caret-position="166">
+              <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1865#1866#0" expanded="true" />
                 <element signature="e#1929#1930#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ascendix/services/VSTSService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="30" selection-start-line="30" selection-end-line="30" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -109,23 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/Settings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="79" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="79" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ascendix/services/VSTSService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="30" column="48" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="187">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
             </state>
           </provider>
         </entry>
@@ -150,6 +135,10 @@
       <find>create</find>
       <find>style</find>
       <find>selec</find>
+      <find>tfsDataRow</find>
+      <find>getAllTimefoxProjectByClient</find>
+      <find>listProjects</find>
+      <find>tfsDataRow.listProjects</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -206,6 +195,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/ascendix/controllers/TaskController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ascendix/models/UIItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/Settings.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ascendix/services/TimeFoxService.java" />
         <option value="$PROJECT_DIR$/src/main/resources/public/index.html" />
       </list>
     </option>
@@ -331,6 +321,16 @@
               <item name="SF-team-hackathon" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="ascendix" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SF-team-hackathon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SF-team-hackathon" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -353,7 +353,7 @@
     <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553405109102" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553407394160" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/com.microsoft.tfs.sdk-14.134.0.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -591,22 +591,27 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/ascendix/services/VSTSService.java</url>
-          <line>30</line>
-          <properties />
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ascendix/services/TimeFoxService.java</url>
           <line>59</line>
           <properties />
           <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/ascendix/services/TimeFoxService.java</url>
+          <line>53</line>
+          <properties />
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>getOptions(driver, &quot;job_cd2&quot;)</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>item.getState() == &quot;Closed&quot;</expression-string>
         <language-id>JAVA</language-id>
@@ -644,16 +649,6 @@
       </expression>
       <expression>
         <expression-string>new TFSTeamProjectCollection(URIUtils.newURI(Settings.TFS_URL), credentials)</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>tpc</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>tpc.getWorkItemClient()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -854,10 +849,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ascendix/models/TimeFoxUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="5" selection-start-line="5" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ascendix/models/UIItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="19" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ascendix/services/VSTSService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ascendix/services/TimeFoxService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="606">
-          <caret line="70" column="49" selection-start-line="70" selection-start-column="49" selection-end-line="70" selection-end-column="49" />
+        <state relative-caret-position="166">
+          <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1865#1866#0" expanded="true" />
@@ -873,34 +892,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ascendix/services/VSTSService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/Settings.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="30" column="48" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ascendix/models/TimeFoxUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="5" selection-start-line="5" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ascendix/models/UIItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="8" column="19" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="19" />
+        <state relative-caret-position="187">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ascendix/controllers/TaskController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="43" column="37" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="37" />
+        <state relative-caret-position="550">
+          <caret line="43" column="39" lean-forward="true" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -909,20 +911,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="232" column="40" selection-start-line="232" selection-start-column="12" selection-end-line="232" selection-end-column="40" />
+        <state relative-caret-position="345">
+          <caret line="242" column="43" selection-start-line="242" selection-start-column="43" selection-end-line="242" selection-end-column="43" />
           <folding>
             <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/Settings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="79" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="79" />
         </state>
       </provider>
     </entry>

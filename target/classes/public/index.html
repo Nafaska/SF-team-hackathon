@@ -97,7 +97,7 @@
                         </select>
                     </td>
                     <td scope="row">
-                        <select :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm" v-model="tfsDataRow.selectedProject">
+                        <select v-if="tfsDataRow.listProjects !== null" :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm" v-model="tfsDataRow.selectedProject">
                             <option v-for="timefoxProject in tfsDataRow.listProjects" :value="timefoxProject.value">{{timefoxProject.label}}</option>
                         </select>
                     </td>
@@ -232,6 +232,7 @@
 			},
 			getAllTimefoxProjectByClient: function(tfsDataRow, event) {
 				var self = this;
+				tfsDataRow.listProjects = null;
 				$.ajax({
 					url: "/api/tasks/getProjects",
 					data: {

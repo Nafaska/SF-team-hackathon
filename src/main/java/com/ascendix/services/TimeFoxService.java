@@ -81,7 +81,7 @@ public class TimeFoxService {
     private void setSelectValue(String value, WebDriver driver, String elementName) {
         Select client = new Select(driver.findElement(By.name(elementName)));
         client.selectByValue(value);
-        waitSeconds(2);
+        waitSeconds(3);
     }
 
     public void addTask(TimeFoxTask task){
