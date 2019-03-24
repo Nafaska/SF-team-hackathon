@@ -97,7 +97,6 @@ public class TimeFoxService {
         setSelectValue(task.getTaskId(), driver, "tsk_cd");
         WebElement saveNew = driver.findElement(By.xpath("//input[@type='button' and @value='Save New']"));
         saveNew.click();
-        destroy();
     }
 
     private static void waitSeconds(int seconds) {

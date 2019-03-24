@@ -97,7 +97,7 @@
 					<td scope="row">
 						<div class="d-inline" v-if="!tfsDataRow.isEditing" style="cursor:pointer;white-space:nowrap;">
 							<img width="20" height="20" src="edit_60.png" alt="Edit" @click="tfsDataRow.isEditing = true">
-							<img width="20" height="20" src="delete_60.png" alt="Delete" @click="deleteRecord(tfsDataRow, index)">
+							<img width="20" height="20" src="delete_60.png" alt="Delete" @click="deleteRecord(index)">
 						</div>
 						<div class="d-inline" v-else style="cursor:pointer;white-space:nowrap; ">
 							<img width="20" height="20" src="undo_60.png" alt="Undo" @click="undoRecordChanges(index)">
@@ -284,11 +284,18 @@
 					this.tfsDataTableBackup[index][key] = this.tfsDataTable[index][key];
 				}
 			},
-
 			deleteRecord: function(index) {
-				debugger;
-				console.log(index);
-			},
+				if (confirm("Are you sure that you want to delete this item?")) {
+					var tfsTable = this.tfsDataTable.filter((item, i) => {
+						return i !== index;
+					});
+					var tfsTableBackup = this.tfsDataTableBackup.filter((item, i) => {
+						return i !== index;
+					});
+					this.tfsDataTable = tfsTable;
+					this.tfsDataTableBackup = tfsTableBackup;
+				}
+			}
 		}
 	});
 </script>
