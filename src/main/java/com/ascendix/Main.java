@@ -9,16 +9,10 @@ import org.springframework.context.annotation.Bean;
 import java.io.IOException;
 
 
-//@SpringBootApplication
+@SpringBootApplication
 public class Main {
-    public static void main(String... args) throws IOException {
-        TimeFoxService timeFoxLogin = new TimeFoxService();
-        TimeFoxUser timeFoxUser = new TimeFoxUser();
-        timeFoxUser.setPassword("");
-        timeFoxUser.setOrgId("5351");
-        timeFoxUser.setUserName("");
-        timeFoxLogin.login(timeFoxUser);
-//        SpringApplication.run(Main.class, args);
+    public static void main(String... args) throws IOException, ParseException {
+        SpringApplication.run(Main.class, args);
     }
 
     @Bean

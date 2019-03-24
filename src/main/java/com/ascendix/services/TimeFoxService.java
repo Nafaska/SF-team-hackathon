@@ -1,4 +1,4 @@
-package com.ascendix.timeFoxService;
+package com.ascendix.services;
 
 import com.ascendix.models.TimeFoxUser;
 import org.openqa.selenium.By;
