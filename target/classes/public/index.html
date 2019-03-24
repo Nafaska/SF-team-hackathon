@@ -83,8 +83,9 @@
                 <tr v-for="(tfsDataRow, index) in tfsDataTable">
                     <td scope="row">
                         <div class="d-inline" v-if="!tfsDataRow.isEditing" style="cursor:pointer;white-space:nowrap;">
-                            <img width="20" height="20" src="edit_60.png" alt="Edit" @click="tfsDataRow.isEditing = true">
-                            <img width="20" height="20" src="delete_60.png" alt="Delete" @click="deleteRecord(tfsDataRow, index)">
+                            <img width="20" height="20" src="edit_60.png" alt="Edit"
+                                 @click="tfsDataRow.isEditing = true">
+                            <img width="20" height="20" src="delete_60.png" alt="Delete" @click="deleteRecord(index)">
                         </div>
                         <div class="d-inline" v-else style="cursor:pointer;white-space:nowrap; ">
                             <img width="20" height="20" src="undo_60.png" alt="Undo" @click="undoRecordChanges(index)">
@@ -92,13 +93,21 @@
                         </div>
                     </td>
                     <td scope="row">
-                        <select :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm" v-model="tfsDataRow.selectedClient" @change="getAllTimefoxProjectByClient(tfsDataRow, $event)">
-                            <option v-for="timefoxClient in timefoxClientsList" :value="timefoxClient.value">{{timefoxClient.label}}</option>
+                        <select :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm"
+                                v-model="tfsDataRow.selectedClient"
+                                @change="getAllTimefoxProjectByClient(tfsDataRow, $event)">
+                            <option v-for="timefoxClient in timefoxClientsList" :value="timefoxClient.value">
+                                {{timefoxClient.label}}
+                            </option>
                         </select>
                     </td>
                     <td scope="row">
-                        <select v-if="tfsDataRow.listProjects !== null" :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm" v-model="tfsDataRow.selectedProject">
-                            <option v-for="timefoxProject in tfsDataRow.listProjects" :value="timefoxProject.value">{{timefoxProject.label}}</option>
+                        {{tfsDataRow.listProjects}}
+                        <select v-if="tfsDataRow.selectedClient" :disabled="!tfsDataRow.isEditing"
+                                class="custom-select custom-select-sm" v-model="tfsDataRow.selectedProject">
+                            <option v-for="timefoxProject in tfsDataRow.listProjects" :value="timefoxProject.value">
+                                {{timefoxProject.label}}
+                            </option>
                         </select>
                     </td>
                     <td scope="row">
@@ -232,7 +241,6 @@
 			},
 			getAllTimefoxProjectByClient: function(tfsDataRow, event) {
 				var self = this;
-				tfsDataRow.listProjects = null;
 				$.ajax({
 					url: "/api/tasks/getProjects",
 					data: {
@@ -240,6 +248,7 @@
 					},
 					success: function(result) {
                         tfsDataRow.listProjects = result;
+                        tfsDataRow.selectedProject;
 					}
 				});
 			},
@@ -288,13 +297,21 @@
 			},
 
 			deleteRecord: function(index) {
-			    debugger
-			    console.log(index);
+			    if(confirm("Are you sure that you want to delete this item?")) {
+			    	var tfsTable = this.tfsDataTable.filter( (item,i) => {
+			        return i != index;
+			        });
+			        var tfsTableBackup = this.tfsDataTableBackup.filter( (item,i) => {
+			        return i != index;
+			         });
+                    this.tfsDataTable = tfsTable;
+                    this.tfsDataTableBackup = tfsTableBackup;
+			    }
 			},
 		}
-
-
 	});
+
+
 
 </script>
 </body>
