@@ -34,7 +34,7 @@
             <div class="col-sm">
                 <input name="radio" type="radio" value="1" v-model="gettingDataType">
                 <label>
-                    Get items by parameters
+                    Get items by queryId
                 </label>
                 <input name="radio" type="radio" value="2" v-model="gettingDataType">
                 <label>
@@ -42,7 +42,7 @@
                 </label>
             </div>
         </div>
-        <div v-if="gettingDataType == 1" class="row my-3 justify-content-md-center">
+        <div v-if="gettingDataType == 2" class="row my-3 justify-content-md-center">
             <div class="col-sm ">
                 <label for="fromDate">FROM:</label>
                 <input id="fromDate" type="date" v-model="fromDate">
@@ -59,7 +59,7 @@
                 <button class="btn btn-primary" type="button" @click='getAllTaskByParams'>Get data from TFS</button>
             </div>
         </div>
-        <div v-else-if="gettingDataType == 2" class="row my-3 justify-content-md-center">
+        <div v-else-if="gettingDataType == 1" class="row my-3 justify-content-md-center">
             <input class="col-sm " type="text" v-model="queryId">
             <div class="col-sm ">
                 <button class="btn btn-primary" type="button" @click='getAllTaskByQueryId'>Get data from TFS</button>
@@ -82,13 +82,16 @@
                 <tbody>
                 <tr v-for="(tfsDataRow, index) in tfsDataTable">
                     <td scope="row">
-                        <div class="d-inline" v-if="!tfsDataRow.isEditing">
-                            <div @click="tfsDataRow.isEditing = true">Edit</div>
-                            <div @click="">Delete</div>
+                        <div class="d-inline" v-if="!tfsDataRow.isEditing" style="cursor:pointer">
+                            <img width="20" height="20" src="edit_60.png" alt="Edit"
+                                 @click="tfsDataRow.isEditing = true">
+                            {{tfsDataRow.isEditing}}
+                            <img width="20" height="20" src="delete_60.png" alt="Delete" @click="deleteRecord(tfsDataRow, index)">
                         </div>
-                        <div class="d-inline" v-else>
-                            <div @click="">Undo</div>
-                            <div @click="">Save</div>
+                        <div class="d-inline" v-else style="cursor:pointer">
+                            <img width="20" height="20" src="undo_60.png" alt="Undo" @click="undoRecordChanges(index)">
+                            {{tfsDataRow.isEditing}}
+                            <img width="20" height="20" src="save_60.png" alt="Save" @click="saveRecordChanges(index)">
                         </div>
                     </td>
                     <td scope="row">
@@ -117,9 +120,9 @@
                     </td>
                     <td scope="row">
                         <b v-if="!tfsDataRow.isEditing">
-                            {{tfsDataRow.spendedTime}}
+                            {{tfsDataRow.spentHours}}
                         </b>
-                        <input type="text" v-model="tfsDataRow.spendedTime" v-if="tfsDataRow.isEditing">
+                        <input type="text" v-model="tfsDataRow.spentHours" v-if="tfsDataRow.isEditing">
                     </td>
                     <td scope="row">
                         <b v-if="!tfsDataRow.isEditing">
@@ -129,9 +132,9 @@
                     </td>
                     <td scope="row">
                         <b v-if="!tfsDataRow.isEditing">
-                            {{new Date(tfsDataRow.workDay).toLocalFormat()}}
+                            {{new Date(tfsDataRow.closedDate).toLocalFormat()}}
                         </b>
-                        <input type="date" v-model="new Date(tfsDataRow.workDay).yyyymmdd()"
+                        <input type="date" v-model="new Date(tfsDataRow.closedDate).yyyymmdd()"
                                v-if="tfsDataRow.isEditing">
                     </td>
                 </tr>
@@ -139,7 +142,7 @@
             </table>
         </div>
         <div class="row my-3">
-            <button type="button" class="btn btn-primary">Push</button>
+            <button type="button" class="btn btn-primary" @click="setTimeFoxData">Push</button>
         </div>
     </div>
 
@@ -172,14 +175,15 @@
 	};
 	var app = new Vue({
 		el: '#app',
-		data: {
-			name: "Vitalik",
-			fromDate: today.yyyymmdd(),
-			toDate: tomorrow.yyyymmdd(),
-			tfsDataTable: null,
-			projectName: 'test',
-			queryId: null,
-			gettingDataType: 1
+		data: function() {
+		    return {
+		    	fromDate: today.yyyymmdd(),
+		    	toDate: tomorrow.yyyymmdd(),
+		    	tfsDataTable: null,
+		    	projectName: 'test',
+		    	queryId: null,
+		    	gettingDataType: 1
+		    }
 		},
 		dataType : "json",
 		created: function() {
@@ -226,28 +230,39 @@
 					}
 				});
 			},
-
-			undoRecordChanges: function() {
+			setTimeFoxData: function() {
+			    debugger
+				var self = this;
+				$.ajax({
+				    type: "POST",
+				    contentType: "application/json",
+					url: "/api/tasks/setTimeFoxData",
+					data: JSON.stringify(self.tfsDataTable),
+					dataType: "json"
+				});
 			},
 
-			saveRecordChanges: function() {
+			undoRecordChanges: function(index) {
+			    for(var key in this.tfsDataTable[index]) {
+			        this.tfsDataTable[index][key] = this.tfsDataTableBackup[index][key];
+			    }
 			},
 
-			deleteRecord: function() {
+			saveRecordChanges: function(index) {
+			    this.tfsDataTable[index].isEditing = false;
+			    for(var key in this.tfsDataTable[index]) {
+			        this.tfsDataTableBackup[index][key] = this.tfsDataTable[index][key];
+			    }
+			},
+
+			deleteRecord: function(index) {
+			    debugger
+			    console.log(index);
 			},
 		}
 
 
 	});
-
-
-
-
-
-
-
-
-
 
 </script>
 </body>
