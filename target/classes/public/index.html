@@ -29,7 +29,7 @@
 
 <div id="app">
 
-    <div class="container">
+    <div class="m-5">
         <div class="row my-3 justify-content-md-center">
             <div class="col-sm">
                 <input name="radio" type="radio" value="1" v-model="gettingDataType">
@@ -82,32 +82,23 @@
                 <tbody>
                 <tr v-for="(tfsDataRow, index) in tfsDataTable">
                     <td scope="row">
-                        <div class="d-inline" v-if="!tfsDataRow.isEditing" style="cursor:pointer">
-                            <img width="20" height="20" src="edit_60.png" alt="Edit"
-                                 @click="tfsDataRow.isEditing = true">
-                            {{tfsDataRow.isEditing}}
+                        <div class="d-inline" v-if="!tfsDataRow.isEditing" style="cursor:pointer;white-space:nowrap;">
+                            <img width="20" height="20" src="edit_60.png" alt="Edit" @click="tfsDataRow.isEditing = true">
                             <img width="20" height="20" src="delete_60.png" alt="Delete" @click="deleteRecord(tfsDataRow, index)">
                         </div>
-                        <div class="d-inline" v-else style="cursor:pointer">
+                        <div class="d-inline" v-else style="cursor:pointer;white-space:nowrap; ">
                             <img width="20" height="20" src="undo_60.png" alt="Undo" @click="undoRecordChanges(index)">
-                            {{tfsDataRow.isEditing}}
                             <img width="20" height="20" src="save_60.png" alt="Save" @click="saveRecordChanges(index)">
                         </div>
                     </td>
                     <td scope="row">
-                        <select :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm">
-                            <option selected>--Select one--</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm" v-model="tfsDataRow.selectedClient" @change="getAllTimefoxProjectByClient(tfsDataRow, $event)">
+                            <option v-for="timefoxClient in timefoxClientsList" :value="timefoxClient.value">{{timefoxClient.label}}</option>
                         </select>
                     </td>
                     <td scope="row">
-                        <select :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm">
-                            <option selected>--Select one--</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select :disabled="!tfsDataRow.isEditing" class="custom-select custom-select-sm" v-model="tfsDataRow.selectedProject">
+                            <option v-for="timefoxProject in tfsDataRow.listProjects" :value="timefoxProject.value">{{timefoxProject.label}}</option>
                         </select>
                     </td>
                     <td scope="row">
@@ -182,12 +173,21 @@
 		    	tfsDataTable: null,
 		    	projectName: 'test',
 		    	queryId: null,
-		    	gettingDataType: 1
+		    	gettingDataType: 1,
+		    	timefoxClientsList: null
 		    }
 		},
 		dataType : "json",
 		created: function() {
-		    console.log('init');
+		    debugger
+		    var self = this;
+			$.ajax({
+				url: "/api/tasks/getClients",
+				success: function(result) {
+					debugger;
+                       self.timefoxClientsList = result;
+				}
+			});
 		},
 		methods: {
 			getAllTaskByParams: function() {
@@ -218,6 +218,37 @@
 					url: "/api/tasks/getAllTaskByQueryId",
 					data: {
 					        queryId: self.queryId
+					},
+					success: function(result) {
+						debugger;
+                        self.tfsDataTableBackup = result;
+						self.tfsDataTable = result.map(item => {
+						    item.isEditing = false;
+						    return  Object.assign({}, item);
+						});
+
+					}
+				});
+			},
+			getAllTimefoxProjectByClient: function(tfsDataRow, event) {
+				var self = this;
+				$.ajax({
+					url: "/api/tasks/getProjects",
+					data: {
+					   clientId: event.target.value
+					},
+					success: function(result) {
+                        tfsDataRow.listProjects = result;
+					}
+				});
+			},
+			getAllTimefoxTaskByClientAndProject: function(index) {
+			    debugger
+				var self = this;
+				$.ajax({
+					url: "/api/tasks/getAllTaskByQueryId",
+					data: {
+					        queryId: self.queryId,
 					},
 					success: function(result) {
 						debugger;

@@ -1,5 +1,8 @@
 package com.ascendix.services;
 
+import com.Settings;
+import com.ascendix.models.Option;
+import com.ascendix.models.TimeFoxTask;
 import com.ascendix.models.TimeFoxUser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,51 +10,108 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class TimeFoxService {
-    public WebDriver login(TimeFoxUser userData) throws IOException {
-        System.setProperty("webdriver.chrome.driver", "C:/chromedriver/chromedriver73.exe");
+    private static WebDriver WEB_DRIVER;
+    private static TimeFoxUser USER;
+
+    public TimeFoxService(TimeFoxUser userData) {
+        USER = userData;
+    }
+
+    private WebDriver login(TimeFoxUser userData) {
+        System.setProperty("webdriver.chrome.driver", Settings.CHROME_DRIVER_PATH);
         WebDriver driver = new ChromeDriver();
 
-        String baseUrl = "https://fox1.functionfox.com/timefox/"; //TODO: add config file
-        driver.get(baseUrl);
-        WebElement userName = driver.findElement(By.name("user"));
-        WebElement password = driver.findElement(By.name("passwd"));
-        WebElement org_cd = driver.findElement(By.name("org_cd"));
-        userName.sendKeys(userData.getUserName());
-        password.sendKeys(userData.getPassword());
-        org_cd.sendKeys(userData.getOrgId());
+        driver.get(Settings.TIME_FOX_URL);
+        setInputElementValue(driver, "user", userData.getUserName());
+        setInputElementValue(driver, "passwd", userData.getPassword());
+        setInputElementValue(driver, "org_cd", userData.getOrgId());
         WebElement loginForm = driver.findElement(By.id("lgf"));
-        loginForm.submit(); //TODO: add timeout
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        WebElement month = driver.findElement(By.name("dtTS1"));
-        WebElement date = driver.findElement(By.name("dtTS2"));
-        WebElement year = driver.findElement(By.name("dtTS3"));
-        //add more info xpath
-        WebElement getdate = driver.findElement(By.className("btn"));
-        month.sendKeys("March");
-        date.sendKeys("21");
-        year.sendKeys("19");
-        getdate.click();
-        WebElement time = driver.findElement(By.name("hrs"));
-        WebElement descript = driver.findElement(By.name("descript"));
-        WebElement client = driver.findElement(By.name("cln_cd2"));
-        WebElement project = driver.findElement(By.name("job_cd2"));
-        WebElement task = driver.findElement(By.name("tsk_cd"));
-        //WebElement save = driver.findElement(By.name("btnSaveEdit"));
-        driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
-        time.sendKeys("8");
-        descript.sendKeys("Working");
-        driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
+        loginForm.submit();
+        waitSeconds(1);
+
+        return driver;
+    }
+
+    private void setInputElementValue(WebDriver driver, String elementName, String userName2) {
+        WebElement userName = driver.findElement(By.name(elementName));
+        userName.sendKeys(userName2);
+    }
+
+    private WebDriver getTimefoxDriver () {
+        if (WEB_DRIVER == null) {
+            WEB_DRIVER = login(USER);
+        }
+
+        return WEB_DRIVER;
+    }
+
+    public List<Option> getProjectsByClient(String clientId) {
+        WebDriver driver = getTimefoxDriver();
+        setSelectValue(clientId, driver, "cln_cd2");
+        return getOptions(driver, "job_cd2");
+    }
+
+    public List<Option> getClients() {
+        return getOptions(getTimefoxDriver(), "cln_cd2");
+    }
+
+    public List<Option> getTasksByProject(String projectId, String clientId) {
+        WebDriver driver = getTimefoxDriver();
+        setSelectValue(clientId, driver, "cln_cd2");
+        setSelectValue(projectId, driver, "job_cd2");
+        return getOptions(driver, "tsk_cd");
+    }
+
+    private List<Option> getOptions(WebDriver driver, String elementName) {
+        List<Option> options = new ArrayList<>();
+        Select clientDropdown = new Select(driver.findElement(By.name(elementName)));
+        if (clientDropdown != null) {
+            for (WebElement webElement : clientDropdown.getOptions()) {
+                options.add(new Option(webElement.getText(), webElement.getAttribute("value")));
+            }
+        }
+        return options;
+    }
+
+    private void setSelectValue(String value, WebDriver driver, String elementName) {
+        Select client = new Select(driver.findElement(By.name(elementName)));
+        client.selectByValue(value);
+        waitSeconds(2);
+    }
+
+    public void addTask(TimeFoxTask task){
+        WebDriver driver = getTimefoxDriver();
+        setSelectValue(task.getMonth(), driver, "dtTS1");
+        setSelectValue(task.getDay(), driver, "dtTS2");
+        setSelectValue(task.getYear(), driver, "dtTS3");
+
+        setInputElementValue(driver, "hrs", task.getTime());
+        setInputElementValue(driver, "descript", task.getDescription());
+        setSelectValue(task.getClientId(), driver, "cln_cd2");
+        setSelectValue(task.getProjectId(), driver, "job_cd2");
+        setSelectValue(task.getTaskId(), driver, "tsk_cd");
         WebElement saveNew = driver.findElement(By.xpath("//input[@type='button' and @value='Save New']"));
         saveNew.click();
-        Select clientDropdown = new Select(driver.findElement(By.name("cln_cd2")));
-        for (WebElement w : clientDropdown.getOptions()) {
-            System.out.println(w.getText());
-        }
-        return driver;
+        destroy();
+    }
 
+    private static void waitSeconds(int seconds) {
+        try {
+            TimeUnit.SECONDS.sleep(seconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public void destroy() {
+        if (WEB_DRIVER != null) {
+            WEB_DRIVER.quit();
+            WEB_DRIVER = null;
+        }
     }
 }
