@@ -83,11 +83,14 @@
                 <tr v-for="(tfsDataRow, index) in tfsDataTable">
                     <td scope="row">
                         <div class="d-inline" v-if="!tfsDataRow.isEditing" style="cursor:pointer">
-                            <img width="20" height="20" src="edit_60.png" alt="Edit" @click="tfsDataRow.isEditing = true">
-                            <img width="20" height="20" src="delete_60.png" alt="Delete" @click="deleteRecord(index)">
+                            <img width="20" height="20" src="edit_60.png" alt="Edit"
+                                 @click="tfsDataRow.isEditing = true">
+                            {{tfsDataRow.isEditing}}
+                            <img width="20" height="20" src="delete_60.png" alt="Delete" @click="deleteRecord(tfsDataRow, index)">
                         </div>
                         <div class="d-inline" v-else style="cursor:pointer">
                             <img width="20" height="20" src="undo_60.png" alt="Undo" @click="undoRecordChanges(index)">
+                            {{tfsDataRow.isEditing}}
                             <img width="20" height="20" src="save_60.png" alt="Save" @click="saveRecordChanges(index)">
                         </div>
                     </td>
@@ -117,9 +120,9 @@
                     </td>
                     <td scope="row">
                         <b v-if="!tfsDataRow.isEditing">
-                            {{tfsDataRow.spendedTime}}
+                            {{tfsDataRow.spentHours}}
                         </b>
-                        <input type="text" v-model="tfsDataRow.spendedTime" v-if="tfsDataRow.isEditing">
+                        <input type="text" v-model="tfsDataRow.spentHours" v-if="tfsDataRow.isEditing">
                     </td>
                     <td scope="row">
                         <b v-if="!tfsDataRow.isEditing">
@@ -129,9 +132,9 @@
                     </td>
                     <td scope="row">
                         <b v-if="!tfsDataRow.isEditing">
-                            {{new Date(tfsDataRow.workDay).toLocalFormat()}}
+                            {{new Date(tfsDataRow.closedDate).toLocalFormat()}}
                         </b>
-                        <input type="date" v-model="new Date(tfsDataRow.workDay).yyyymmdd()"
+                        <input type="date" v-model="new Date(tfsDataRow.closedDate).yyyymmdd()"
                                v-if="tfsDataRow.isEditing">
                     </td>
                 </tr>
@@ -139,7 +142,7 @@
             </table>
         </div>
         <div class="row my-3">
-            <button type="button" class="btn btn-primary">Push</button>
+            <button type="button" class="btn btn-primary" @click="setTimeFoxData">Push</button>
         </div>
     </div>
 
@@ -172,14 +175,15 @@
 	};
 	var app = new Vue({
 		el: '#app',
-		data: {
-			name: "Vitalik",
-			fromDate: today.yyyymmdd(),
-			toDate: tomorrow.yyyymmdd(),
-			tfsDataTable: null,
-			projectName: 'test',
-			queryId: null,
-			gettingDataType: 1
+		data: function() {
+		    return {
+		    	fromDate: today.yyyymmdd(),
+		    	toDate: tomorrow.yyyymmdd(),
+		    	tfsDataTable: null,
+		    	projectName: 'test',
+		    	queryId: null,
+		    	gettingDataType: 1
+		    }
 		},
 		dataType : "json",
 		created: function() {
@@ -226,15 +230,29 @@
 					}
 				});
 			},
+			setTimeFoxData: function() {
+			    debugger
+				var self = this;
+				$.ajax({
+				    type: "POST",
+				    contentType: "application/json",
+					url: "/api/tasks/setTimeFoxData",
+					data: JSON.stringify(self.tfsDataTable),
+					dataType: "json"
+				});
+			},
 
 			undoRecordChanges: function(index) {
-			    debugger
-			    console.log(index);
+			    for(var key in this.tfsDataTable[index]) {
+			        this.tfsDataTable[index][key] = this.tfsDataTableBackup[index][key];
+			    }
 			},
 
 			saveRecordChanges: function(index) {
-			    debugger
-			    console.log(index);
+			    this.tfsDataTable[index].isEditing = false;
+			    for(var key in this.tfsDataTable[index]) {
+			        this.tfsDataTableBackup[index][key] = this.tfsDataTable[index][key];
+			    }
 			},
 
 			deleteRecord: function(index) {
@@ -245,6 +263,7 @@
 
 
 	});
+
 </script>
 </body>
 

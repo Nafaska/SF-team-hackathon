@@ -4,12 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class UIItem {
-    double spentHours;
-    String description;
-    Long closedDate;
+public class TimefoxDataRequest {
+    List<UIItem> uiItems;
 }

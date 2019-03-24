@@ -1,5 +1,6 @@
 package com.ascendix.controllers;
 
+import com.ascendix.models.TimefoxDataRequest;
 import com.ascendix.models.UIItem;
 import com.ascendix.services.UIItemsService;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ public class TaskController {
             @RequestParam(value = "projectName", required = false) String projectName
     ) {
         List<UIItem> tfsDataTable = new ArrayList<UIItem>();
+
         //        Put here your code
         return tfsDataTable;
     }
@@ -30,5 +32,12 @@ public class TaskController {
         return new UIItemsService().getItemsByQueryId(queryId);
     }
 
+    @PostMapping(value = "/setTimeFoxData")
+    public void setTimeFoxData(@RequestBody List<UIItem> tfsDatatable) {
+
+        System.out.println(tfsDatatable.size());
+        //        Put here your code
+
+    }
 
 }
