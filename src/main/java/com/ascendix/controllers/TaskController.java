@@ -1,26 +1,34 @@
 package com.ascendix.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.ascendix.models.TFS_QueryParameters;
+import com.ascendix.models.VSTS_Data;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 @RestController
 @RequestMapping(value = "/api/tasks")
 public class TaskController {
 
+
     @GetMapping(value = "/getAllTaskByParams")
-    public String getAllTask(
+    public  ArrayList<VSTS_Data> getAllTask(
             @RequestParam(value = "fromDate", required = false) Long fromDate,
             @RequestParam(value = "toDate", required = false) Long toDate,
             @RequestParam(value = "projectName", required = false) String projectName
     ) {
-        System.out.println(fromDate);
-        return fromDate.toString();
+        ArrayList<VSTS_Data> tfsDataTable = new ArrayList<VSTS_Data>();
+        //        Put here your code
+        return tfsDataTable;
     }
 
     @GetMapping(value = "/getAllTaskByQueryId")
-    public String getAllTaskByQueryId(@RequestParam(value = "queryId") String queryId) {
-        return null;
+    public ArrayList<VSTS_Data> getAllTaskByQueryId(@RequestParam(value = "queryId") String queryId) {
+        ArrayList<VSTS_Data> tfsDataTable = new ArrayList<VSTS_Data>();
+        //        Put here your code
+        return tfsDataTable;
     }
+
+
 }
